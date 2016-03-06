@@ -65,6 +65,7 @@
 		for($t = 224; $t <= 255; $t++){		
 			if(array_search(iconv("WINDOWS-1251", "UTF-8", chr($t)), $alfavit_new) != ""){
 				$i = array_search(iconv("WINDOWS-1251", "UTF-8", chr($t)), $alfavit_new);
+				echo $i;
 				echo $arr_new[$h][$i];
 				echo $arr_new[($h+1)][$i];
 			}
