@@ -1,7 +1,7 @@
 ﻿<h1>Общая алфавитная перестановка</h1>
 <?php
 	error_reporting(0);
-	$key = "баввде";
+	$key = mb_strtolower("ЗемляникаЗемляника2016");
 	//Считывание русских букв
 	function mbStringToArray($string, $encoding = 'UTF-8'){
 		$strlen = mb_strlen($string);
@@ -14,7 +14,7 @@
 	}
 	
 	//Считывание из файла
-	$text1 = file_get_contents('index4.txt');
+	$text1 = mb_strtolower(file_get_contents('index4.txt'));
 	$text = mbStringToArray(mb_strtolower($text1));
 	echo "<b>Ключ: </b>";
 	echo $key;
@@ -64,7 +64,7 @@
 	$new_text = mbStringToArray($new_text);
 	
 	//Декодирование
-	echo "<b>Раскодированное: </b>";
+	echo "<b>Дешифрование: </b>";
 	$length = count($text);
         for($i = 0; $i < $length; $i++){
                 $tt = $text[$i];
