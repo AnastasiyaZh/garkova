@@ -1,7 +1,7 @@
 ﻿<h1>Шифр "Марк"</h1>
 <?php
 	error_reporting(0);
-	$key = "маббдк";
+	$key = mb_strtolower(file_get_contents('key5.txt'));
 	//Считывание русских букв
 	function mbStringToArray($string, $encoding = 'UTF-8'){
 		$strlen = mb_strlen($string);
@@ -13,42 +13,39 @@
 		return ($array);
 	}
         
-        $key = mbStringToArray($key);
-        $length = count($key);
+    $key = mbStringToArray($key);
+    $length = count($key);
 	for($i = 0; $i < $length; $i++){
-            if (!in_array($key[$i], $alfavit_new)){
-                if(preg_match('/[а-я]+/i', $key[$i]) == 1 && $key[$i] != "»" && $key[$i] != "«"){
-                    $alfavit_new[] = $key[$i];
-                }
-            }
+		if (!in_array($key[$i], $alfavit_new)){
+			if(preg_match('/[а-я]+/i', $key[$i]) == 1 && $key[$i] != "»" && $key[$i] != "«"){
+				$alfavit_new[] = $key[$i];
+			}
+		}
 	}
         
         echo "<b>Таблица: </b><br>";
         $new_array = "";
         $m = 0; $p = 224;
-        for($i = 0; $i <= 3; $i++){
+		for($j = 0; $j <= 9; $j++){
+			$new_array[0][$j] = $alfavit_new[$j];
+		}
+        for($i = 1; $i <= 3; $i++){
             for($j = 0; $j <= 9; $j++){
-                if($m < count($alfavit_new)){
-                    $new_array[$i][$j] = $alfavit_new[$m];
-                    $m++;
-                }
-                else{
-                    if(!in_array(iconv("WINDOWS-1251", "UTF-8", chr($p)), $alfavit_new)){
-                        $new_array[$i][$j] = iconv("WINDOWS-1251", "UTF-8", chr($p));
-                        $p++;
-                    }
-                    else{
-                        $j--;
-                        $p++;
-                    }
-                    
-                    if($p == 256){
-                        break;
-                    }
-                    
-                }
-            }
-        }
+				if(!in_array(iconv("WINDOWS-1251", "UTF-8", chr($p)), $alfavit_new)){
+					$new_array[$i][$j] = iconv("WINDOWS-1251", "UTF-8", chr($p));
+					$p++;
+				}
+				else{
+					$j--;
+					$p++;
+				}
+				
+				if($p == 256){
+					break;
+				}
+				
+			}
+		}
 
         for($i = 0; $i <= 3; $i++){
             for($j = 0; $j <= 9; $j++){
@@ -68,7 +65,7 @@
 	echo $text1;
         
 	//Декодирование
-	echo "<br><br><b>Раскодированное: </b>";
+	echo "<br><br><b>Зашифрованное: </b>";
 	$length_text = count($text);
 	for($q = 0; $q < $length_text; $q++){
             $tt = $text[$q];
@@ -96,7 +93,7 @@
                         if($i1 == 3){
                             $i1 = 0;
                         }
-                        echo $i1.$j1." ";
+                        echo $i1.$j1."";
                     }
                 }
             }   

@@ -2,7 +2,7 @@
 <?php
 	error_reporting(0);
 	$key = mb_strtolower(file_get_contents('key5.txt'));
-    $k = 2;
+    $k = mb_strtolower(file_get_contents('k5.txt'));
 	//Считывание русских букв
 	function mbStringToArray($string, $encoding = 'UTF-8'){
 		$strlen = mb_strlen($string);
@@ -36,6 +36,11 @@
 	for($i = 0; $i < count($key); $i++){
 		echo $key[$i]; 
 	}
+	echo " (";
+	for($i = 0; $i < $l; $i++){
+		echo $alfavit_new[$i]; 
+	}
+	echo ")";
 	echo "<br><b>Строка: </b>";
 	echo $text1;
 	
@@ -44,7 +49,12 @@
 	$arr_new = "";
 	$j = $m = 0;
 	for($i = 0; $i < $length_text; $i++){
-		$arr_new[$j][$m] = $text[$i];
+		if($text[$i] == " "){
+			$arr_new[$j][$m] = "_";
+		}
+		else{
+			$arr_new[$j][$m] = $text[$i];
+		}
 		$m++;
 		if($m == $l){
 			$m = 0;
@@ -58,14 +68,16 @@
 			echo $arr_new[$i][$j]." ";
 		}
 		echo "<br>";
+		if($i%2 == 1){echo "----------<br>";}
 	}
 	
-	echo "<br><br><b>Зашифрованное: </b>";
-	for($h = 0; $h < $f; $h+=2){
+	echo "<br><br><b>Зашифрованное сообщение: </b>";
+	for($h = 0; $h < $f; $h+=$k){
 		for($t = 224; $t <= 255; $t++){		
-			if(array_search(iconv("WINDOWS-1251", "UTF-8", chr($t)), $alfavit_new) != ""){
+		//echo array_search(iconv("WINDOWS-1251", "UTF-8", chr($t)), $alfavit_new);
+			if(array_search(iconv("WINDOWS-1251", "UTF-8", chr($t)), $alfavit_new) === FALSE){}
+			else{
 				$i = array_search(iconv("WINDOWS-1251", "UTF-8", chr($t)), $alfavit_new);
-				echo $i;
 				echo $arr_new[$h][$i];
 				echo $arr_new[($h+1)][$i];
 			}
