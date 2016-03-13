@@ -15,10 +15,13 @@
         
     $key = mbStringToArray($key);
     $length = count($key);
+	$j = 0;
 	for($i = 0; $i < $length; $i++){
 		if (!in_array($key[$i], $alfavit_new)){
 			if(preg_match('/[а-я]+/i', $key[$i]) == 1 && $key[$i] != "»" && $key[$i] != "«"){
 				$alfavit_new[] = $key[$i];
+				$j++;
+				if($j == 10) break;
 			}
 		}
 	}
@@ -46,13 +49,15 @@
 				
 			}
 		}
-
+		echo "<table border='1'>";
         for($i = 0; $i <= 3; $i++){
+			echo "<tr>";
             for($j = 0; $j <= 9; $j++){
-                echo $new_array[$i][$j]." ";
+                echo "<td style='padding: 3px;'>".$new_array[$i][$j]."</td>";
             }
-            echo "<br>";
+            echo "</tr>";
         }
+		echo "</table>";
         
 	//Считывание из файла
 	$text1 = file_get_contents('index7.txt');
