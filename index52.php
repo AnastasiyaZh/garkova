@@ -21,7 +21,7 @@
 			if(preg_match('/[а-я]+/i', $key[$i]) == 1 && $key[$i] != "»" && $key[$i] != "«"){
 				$alfavit_new[] = $key[$i];
 				$j++;
-				if($j == 10) break;
+				if($j == 7) break;
 			}
 		}
 	}
@@ -48,6 +48,9 @@
 				}
 				
 			}
+		}
+		if(count($alfavit_new) == 1){
+			$new_array[0][1] = "я";
 		}
 
         echo "<table border='1'>";

@@ -21,43 +21,46 @@
 			if(preg_match('/[а-я]+/i', $key[$i]) == 1 && $key[$i] != "»" && $key[$i] != "«"){
 				$alfavit_new[] = $key[$i];
 				$j++;
-				if($j == 10) break;
+				if($j == 7) break;
 			}
 		}
 	}
-        
-        echo "<b>Таблица: </b><br>";
-        $new_array = "";
-        $m = 0; $p = 224;
+   if(count($alfavit_new) < 2){
+	   echo "Ключ слишком мал";
+   } 
+   else{
+	echo "<b>Таблица: </b><br>";
+	$new_array = "";
+	$m = 0; $p = 224;
+	for($j = 0; $j <= 9; $j++){
+		$new_array[0][$j] = $alfavit_new[$j];
+	}
+	for($i = 1; $i <= 3; $i++){
 		for($j = 0; $j <= 9; $j++){
-			$new_array[0][$j] = $alfavit_new[$j];
-		}
-        for($i = 1; $i <= 3; $i++){
-            for($j = 0; $j <= 9; $j++){
-				if(!in_array(iconv("WINDOWS-1251", "UTF-8", chr($p)), $alfavit_new)){
-					$new_array[$i][$j] = iconv("WINDOWS-1251", "UTF-8", chr($p));
-					$p++;
-				}
-				else{
-					$j--;
-					$p++;
-				}
-				
-				if($p == 256){
-					break;
-				}
-				
+			if(!in_array(iconv("WINDOWS-1251", "UTF-8", chr($p)), $alfavit_new)){
+				$new_array[$i][$j] = iconv("WINDOWS-1251", "UTF-8", chr($p));
+				$p++;
 			}
+			else{
+				$j--;
+				$p++;
+			}
+			
+			if($p == 256){
+				break;
+			}
+			
 		}
-		echo "<table border='1'>";
-        for($i = 0; $i <= 3; $i++){
-			echo "<tr>";
-            for($j = 0; $j <= 9; $j++){
-                echo "<td style='padding: 3px;'>".$new_array[$i][$j]."</td>";
-            }
-            echo "</tr>";
-        }
-		echo "</table>";
+	}
+	echo "<table border='1'>";
+	for($i = 0; $i <= 3; $i++){
+		echo "<tr>";
+		for($j = 0; $j <= 9; $j++){
+			echo "<td style='padding: 3px;'>".$new_array[$i][$j]."</td>";
+		}
+		echo "</tr>";
+	}
+	echo "</table>";
         
 	//Считывание из файла
 	$text1 = file_get_contents('index7.txt');
@@ -103,4 +106,5 @@
                 }
             }   
 	}
+   }
 ?>
