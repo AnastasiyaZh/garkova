@@ -1,25 +1,26 @@
 ﻿<h1>Числа палиндромы</h1>
 <?php
 	error_reporting(0);
-	$n = file_get_contents('index9.txt');;
-	echo "<b>Полиндром номер ".$n." : </b>";
-	
-	$currlen = 1;
-	$currcount = 9;
-	while($n > $currcount){
-		$n -= $currcount;
-		$currlen += 1;
-		$currcount =  pow(9*10, ceil(($currlen - 1) / 2));
-	}
-	
-	$leftsize = ceil(($currlen - 1) / 2); 
-	$rightsize = $currlen - $leftsize;
+	$n = file_get_contents('index9.txt');
 
-	$leftpart = pow(10, ($leftsize - 1)) + $n - 1; 
-	$rightpart = strrev($leftpart); 
-	if($rightsize < $leftsize){
-		$rightpart = substr($rightpart, 1);  
+	$num = $n + 1;
+	$exp = strlen((int)($num - pow(10,(strlen($num) - 2)))) - 1;
+	$num -= pow(10, $exp); 
+
+	echo "<b>Полиндром ".$n ." - </b>";
+
+	if($n < 10){
+		echo $n;
 	}
-	
-	echo $leftpart.$rightpart;
+	else{
+		if($num >= pow(10, $exp) || $num == 0){ //четно
+			$str_rev = strval(strrev($num));
+			$s = strval($num);
+			echo substr($s, 0, -1).$str_rev;
+		}
+		else{ // нечетно
+			$str_rev = strval(strrev($num));
+			echo $num.$str_rev;
+		}
+	}
 ?>
